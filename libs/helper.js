@@ -1,17 +1,30 @@
 var randomstring = require("randomstring");
+const redis = require("async-redis");
 var validUrl = require("valid-url");
 
-// in-memory Map as a DB
-const url_data = new Map();
+const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const redisClient = redis.createClient(REDIS_PORT);
 
-function urlShortner(request_domain) {
-  if (url_data.has(request_domain)) {
-    return url_data.get(request_domain);
-  } else {
+/*
+ * function to fetch key for url from redis
+ * if url is present return value
+ * if not, set the key and return value
+ */
+async function urlShortner(request_domain) {
+  const result = await redisClient.get(request_domain);
+  if (result === null) {
+    //random string is used as short url
     const random_string = randomstring.generate(7);
-    url_data.set(request_domain, random_string);
+    await redisClient.set(request_domain, random_string);
     return random_string;
+  } else {
+    return result;
   }
+}
+
+// returns all the keys, helps in debugging
+async function getDB() {
+  return await redisClient.keys("*");
 }
 
 function urlValidation(url) {
@@ -22,4 +35,4 @@ function urlValidation(url) {
   }
 }
 
-module.exports = { urlShortner, urlValidation };
+module.exports = { urlShortner, urlValidation, getDB };
