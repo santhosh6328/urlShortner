@@ -10,7 +10,7 @@ const redisClient = redis.createClient(REDIS_PORT);
  * if url is present return value
  * if not, set the key and return value
  */
-async function urlShortner(request_domain) {
+async function domainHandler(request_domain) {
   const result = await redisClient.get(request_domain);
   if (result === null) {
     //random string is used as short url
@@ -27,7 +27,7 @@ async function getDB() {
   return await redisClient.keys("*");
 }
 
-function urlValidation(url) {
+function validateUrl(url) {
   if (validUrl.isUri(url)) {
     return true;
   } else {
@@ -35,4 +35,4 @@ function urlValidation(url) {
   }
 }
 
-module.exports = { urlShortner, urlValidation, getDB };
+module.exports = { domainHandler, validateUrl, getDB };

@@ -3,16 +3,20 @@ const router = express.Router();
 const helper = require("../libs/helper");
 
 router.get('/all', async(req, res) => {
+  try{
     const result = await helper.getDB();
     res.send(result);
+  }catch(err){
+    res.status(400).send(err);
+  }
 });
 
 router.get("/", async (req, res) => {
     try{
-  if (!helper.urlValidation(req.body.url)) {
+  if (!helper.validateUrl(req.body.url)) {
     throw err;
   }
-  const output = await helper.urlShortner(req.body.url);
+  const output = await helper.domainHandler(req.body.url);
   res.status(200).send(output);
 }catch(err){
     res.status(400).send("BAD REQUEST: invalid url");}
