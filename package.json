@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "randomstring": "^1.2.1"
+    "randomstring": "^1.2.1",
+    "valid-url": "^1.0.9"
   }
 }

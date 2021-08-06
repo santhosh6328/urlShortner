@@ -1,4 +1,5 @@
 var randomstring = require("randomstring");
+var validUrl = require("valid-url");
 
 // in-memory Map as a DB
 const url_data = new Map();
@@ -13,4 +14,12 @@ function urlShortner(request_domain) {
   }
 }
 
-module.exports = { urlShortner };
+function urlValidation(url) {
+  if (validUrl.isUri(url)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+module.exports = { urlShortner, urlValidation };
