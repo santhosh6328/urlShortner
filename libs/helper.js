@@ -27,6 +27,7 @@ async function getDB() {
   return await redisClient.keys("*");
 }
 
+//check if requested url is valid 
 function validateUrl(url) {
   if (validUrl.isUri(url)) {
     return true;

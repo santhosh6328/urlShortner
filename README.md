@@ -14,7 +14,7 @@ URL Shortner service that accepts a URL as a body parameter over a REST API and 
 
 ### Docker details
 
-docker image : santhosh6328/url-shortner
+docker image : https://hub.docker.com/repository/docker/santhosh6328/url-shortner 
 ```
 docker pull santhosh6328/url-shortner:latest
 ```
@@ -25,9 +25,9 @@ docker pull santhosh6328/url-shortner:latest
 
 ---
 
-#### API 1 : Homepage / Welcome pages
+#### API 1 : Url-Shortner API
 
-Returns welcome response.
+Returns hashed value
 
 1. URL :
 
@@ -61,7 +61,7 @@ wer9ef5
 
 #### API 2 : query entire DB (for debugging)
 
-Returns welcome response.
+Returns welcome response
 
 1. URL :
 
