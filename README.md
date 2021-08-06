@@ -15,8 +15,27 @@ URL Shortner service that accepts a URL as a body parameter over a REST API and 
 ### Docker details
 
 docker image : https://hub.docker.com/repository/docker/santhosh6328/url-shortner 
+
+### Deployement procedure: local
+
 ```
+// redis must be install and running
+// clone the repo 
+
+git clone https://github.com/santhosh6328/urlShortner.git
+
+cd urlShortner
+
+node app.js
+```
+
+### Deployement procedure: using docker
+
+```
+// docker must be installed and docker daemon should be running
 docker pull santhosh6328/url-shortner:latest
+
+docker run -p 5000:5000 santhosh6328/url-shortner
 ```
 
 ### API documentation
