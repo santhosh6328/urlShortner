@@ -22,12 +22,27 @@ async function domainHandler(request_domain) {
   }
 }
 
+/*
+ * gets all the key value pairs and checks if hash matches
+ * if found return domain
+ */
+async function hashHandler(hash) {
+  const result = await redisClient.keys("*");
+  for (let i = 0; i < result.length; i++) {
+    let temp = await redisClient.get(result[i]);
+    if (temp === hash) {
+      return result[i];
+    }
+  }
+  return "short url not found";
+}
+
 // returns all the keys, helps in debugging
 async function getDB() {
   return await redisClient.keys("*");
 }
 
-//check if requested url is valid 
+//checks if requested url is valid
 function validateUrl(url) {
   if (validUrl.isUri(url)) {
     return true;
@@ -36,4 +51,4 @@ function validateUrl(url) {
   }
 }
 
-module.exports = { domainHandler, validateUrl, getDB };
+module.exports = { domainHandler, validateUrl, getDB, hashHandler };

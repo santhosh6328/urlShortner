@@ -44,21 +44,21 @@ docker run -p 5000:5000 santhosh6328/url-shortner
 
 ---
 
-#### API 1 : Url-Shortner API
+#### API 1 : Returns Hash value stored
 
 Returns hashed value
 
 1. URL :
 
 ```
-    GET /
+    POST /
 ```
 2. query params: not applicable
 3. Body params: domain url
 
 ```
 {
-   "url": "https://google.com"
+   "url": "https://www.google.com"
 }
 ```
 
@@ -71,21 +71,53 @@ Returns hashed value
 6. Sample response:
 
 ```
-GET localhost:5000
+POST localhost:5000
 
 wer9ef5
 ```
 
----
+--- 
 
-#### API 2 : query entire DB (for debugging)
+#### API 2 : Retrives Domain URL 
 
-Returns welcome response
+Returns domain url
 
 1. URL :
 
 ```
-    GET /all
+    GET /:hash
+```
+2. query params: hash value
+```
+localhost:5000/wer9ef5
+```
+3. Body params: not applicable
+4. Success response:
+   - Response body with stored domain value
+   - Status code: 200
+5. Error response:
+   - 'BAD REQUEST: invalid hash'
+   - Status code: 400
+6. Sample response:
+
+```
+POST localhost:5000
+
+{
+   "https://www.google.com"
+}
+```
+
+---
+
+#### API 3 : query entire DB (for debugging)
+
+Returns all keys present in redis
+
+1. URL :
+
+```
+    GET /debug/all
 ```
 2. query params: not applicable
 3. Body params: not applicable
@@ -98,6 +130,6 @@ Returns welcome response
 6. Sample response:
 
 ```
-GET localhost:5000/all
+GET localhost:5000/debug/all
 
 ["https://google.com", "https://facebook.com", ... , "https://netflix.com"]
