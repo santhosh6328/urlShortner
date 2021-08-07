@@ -1,5 +1,5 @@
 #Base Image node:8.12.0 on alpine
-FROM node:8.12.0-alpine
+FROM node:16-alpine3.11
 
 #Copy required code
 COPY . /UrlShortner
